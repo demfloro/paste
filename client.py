@@ -25,7 +25,7 @@ except UnicodeDecodeError:
 
 post_data = { "data": stdin }
 
-http = urllib3.PoolManager()
+http = urllib3.PoolManager(cert_reqs='CERT_REQUIRED',ca_certs='/etc/ssl/certs/ca-certificates.crt')
 
 try:
 	r = http.request('POST', URL,fields=post_data,timeout=TIMEOUT)
