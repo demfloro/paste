@@ -47,7 +47,7 @@ def get(linkid):
 	elif data == None:
 		return Response("No data",status=403)
 	
-	return Response(storage.get(linkid),mimetype='text/plain')
+	return Response(data,mimetype='text/plain')
 
 @app.route('/')
 def about():
