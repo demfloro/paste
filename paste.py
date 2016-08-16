@@ -25,7 +25,7 @@ def push_data(data):
 	storage = redis.Redis(host = config.HOST, port = config.PORT, password = config.PASS,decode_responses=True)
 	linkid = newid()
 	try:
-		storage.set(linkid,data)
+		storage.setex(linkid,data,config.EXPIRE)
 	except redis.exception.ConnectionError:
 		return False
 	return config.URL+"/"+linkid

@@ -7,3 +7,4 @@ LENGTH=12
 URL="https://url"
 POST_URI="/add"
 CLIENT_URL=URL+"id"
+EXPIRE="15552000" #6 months
