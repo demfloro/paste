@@ -1,6 +1,19 @@
 <!doctype html>
-<title>Yet another pastebin like service</title>
-
-This is index page of pastebin like service, which uses Python, Flask and Redis. 
-
-You can add pastes by POST-request to {{ post_url }} with curl or by this client {{ client_url }}
+<html>
+	<head>
+		<title>Yet another pastebin like service</title>
+		<style type="text/css">
+			.container {
+			max-width: 550px;
+			padding-top: 100px;
+			font-size: 150%;
+			}
+		</style>
+	</head>
+	<body>
+		<center><div class="container">
+		<p>This is index page of pastebin like service, which uses Python, Flask and Redis.</p>
+		<p>You can add pastes by POST-request to <b>{{ post_url }}</b> with curl or by <a href={{ client_url }}>this client</a>.</p>
+		</div></center>
+	</body>
+</html>
