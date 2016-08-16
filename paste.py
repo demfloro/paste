@@ -37,7 +37,7 @@ def post():
 		url = push_data(request.form['data']);
 		if url == False:
 			return Response("Internal server error, try again later",status=500)
-		return Response("url")
+		return Response(url)
 
 @app.route('/<linkid>')
 def get(linkid):
