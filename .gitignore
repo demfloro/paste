@@ -1,0 +1,7 @@
+bin
+include
+lib
+paste.ini
+paste.sock
+pip-selfcheck.json
+__pycache__
