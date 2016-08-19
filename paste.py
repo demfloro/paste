@@ -17,7 +17,7 @@ def get_data(linkid):
 	storage = redis.Redis(host = config.HOST, port = config.PORT, password = config.PASS,decode_responses=True)
 	try:
 		data = storage.get(linkid)
-	except redis.exception.ConnectionError:
+	except redis.exceptions.ConnectionError:
 		return False
 	return data
 
@@ -26,7 +26,7 @@ def push_data(data):
 	linkid = newid()
 	try:
 		storage.setex(linkid,data,config.EXPIRE)
-	except redis.exception.ConnectionError:
+	except redis.exceptions.ConnectionError:
 		return False
 	return config.URL+"/"+linkid
 	
@@ -51,5 +51,5 @@ def get(linkid):
 
 @app.route('/')
 def about():
-	return render_template('about.html',post_url=config.URL+config.POST_URI,client_url=config.CLIENT_URL)
+	return render_template('about.html',post_url=config.URL+config.POST_URI,client_url=config.CLIENT_URL,github_url=config.GITHUB_URL)
 	

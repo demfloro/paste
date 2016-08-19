@@ -8,3 +8,4 @@ URL="https://url"
 POST_URI="/add"
 CLIENT_URL=URL+"id"
 EXPIRE="15552000" #6 months
+GITHUB_URL="https://github.com/"
