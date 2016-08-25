@@ -10,8 +10,6 @@ import config
 
 app = Flask(__name__)
 
-def newid():
-    return os.urandom(config.LENGTH).hex()
 
 def get_data(linkid):
 	storage = redis.Redis(host = config.HOST, port = config.PORT, password = config.PASS,decode_responses=True)
@@ -23,6 +21,12 @@ def get_data(linkid):
 
 def push_data(data):
 	storage = redis.Redis(host = config.HOST, port = config.PORT, password = config.PASS,decode_responses=True)
+	def newid():
+		key = os.urandom(config.LENGTH).hex()
+		while storage.exists(key):
+			key = os.urandom(config.LENGTH).hex()
+		return key
+
 	linkid = newid()
 	try:
 		storage.setex(linkid,data,config.EXPIRE)
