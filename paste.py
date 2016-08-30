@@ -10,9 +10,18 @@ import config
 
 app = Flask(__name__)
 
+def redis_connect(host = config.HOST,port = config.PORT, password = config.PASS):
+	return redis.Redis(host = host,port = port,password = password,decode_responses = True)
+
+def newid():
+	storage = redis_connect()
+	key = os.urandom(config.LENGTH).hex()
+	while storage.exists(key):
+		key = os.urandom(config.LENGTH).hex()
+	return key
 
 def get_data(linkid):
-	storage = redis.Redis(host = config.HOST, port = config.PORT, password = config.PASS,decode_responses=True)
+	storage = redis_connect()
 	try:
 		data = storage.get(linkid)
 	except redis.exceptions.ConnectionError:
@@ -20,14 +29,9 @@ def get_data(linkid):
 	return data
 
 def push_data(data):
-	storage = redis.Redis(host = config.HOST, port = config.PORT, password = config.PASS,decode_responses=True)
-	def newid():
-		key = os.urandom(config.LENGTH).hex()
-		while storage.exists(key):
-			key = os.urandom(config.LENGTH).hex()
-		return key
-
+	storage = redis_connect()
 	linkid = newid()
+
 	try:
 		storage.setex(linkid,data,config.EXPIRE)
 	except redis.exceptions.ConnectionError:
